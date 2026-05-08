@@ -46,27 +46,46 @@ public class Ui {
 	}
 	
 	public static void printBoard(ChessPiece[][] pieces) {
-		for (int i=0; i < pieces.length; i++) {
-			System.out.print((8-i) + " ");
-			for(int j=0; j < pieces.length; j++) {
-				printPiece(pieces[i][j]);			
+		for (int i = 0; i < pieces.length; i++) {
+			System.out.print((8 - i) + " ");
+			for (int j = 0; j < pieces.length; j++) {
+				printPiece(pieces[i][j], false);
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+
+	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
+		for (int i = 0; i < pieces.length; i++) {
+			System.out.print((8 - i) + " ");
+			for (int j = 0; j < pieces.length; j++) {
+				printPiece(pieces[i][j], possibleMoves[i][j]);
 			}
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
 	}
 	
-	private static void printPiece(ChessPiece piece) {
-		if (piece == null) {
-			System.out.print("-");
-		}
-		else {
-			if(piece.getColor() == Color.WHITE) {
-				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
-			}else {
-				System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
-			}
-		}
-		System.out.print(" ");
+	private static void printPiece(ChessPiece piece, boolean background) {
+	    // 1. Lógica do fundo (Destaque de movimento ou fundo padrão)
+	    if (background) {
+	        System.out.print(ANSI_BLUE_BACKGROUND); // Cor para movimentos possíveis
+	    } else {
+	        // Se quiser o fundo preto padrão como na imagem do curso:
+	        // System.out.print(ANSI_BLACK_BACKGROUND); 
+	    }
+
+	    // 2. Lógica da peça
+	    if (piece == null) {
+	        System.out.print("-" + ANSI_RESET); // Imprime um traço no lugar vazio
+	    } else {
+	        if (piece.getColor() == Color.WHITE) {
+	            System.out.print(ANSI_WHITE + piece + ANSI_RESET);
+	        } else {
+	            System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
+	        }
+	    }
+	    System.out.print(" "); // Espaço entre as casas
 	}
 }
